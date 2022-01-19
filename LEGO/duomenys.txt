@@ -1,0 +1,11 @@
+2
+3
+Kvatokliai 45
+Svajokliai 15
+Zirzliai 10
+5
+Informatikai 75
+Programmeriai 65
+Ereliai 55
+Kolibriai 40
+Rimtuoliai 12
