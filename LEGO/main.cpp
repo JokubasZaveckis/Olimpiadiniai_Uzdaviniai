@@ -5,102 +5,95 @@
 
 using namespace std;
 
-struct Dalyviai
+struct Dalyvis
 {
-    string* Pavadinimas = nullptr;
-    int* Vertinimas = nullptr;
-    int* regionas = nullptr;
-
-
-    ~Dalyviai()
-    {
-        delete[] Vertinimas;
-        delete[] Pavadinimas;
-        delete[] regionas;
-    }
+    string Pavadinimas;
+    int Taskai;
+    int Regionas;
 };
 
-void Nuskaitymas(int& n, int& k, Dalyviai& dalyviai);
-void VisuRegionuPridejimas(int n, int& k, Dalyviai& dalyviai);
-void Rikiavimas(int k, Dalyviai& dalyviai);
-void Isvedimas(int k, Dalyviai dalyviai);
+void Nuskaitymas(int&n, int& k, Dalyvis dalyviai[], ifstream& duomenys);
+void VisuRegionuPridejimas(int n, int& k, Dalyvis dalyviai[], ifstream& duomenys);
+int Iterpimas(int n, Dalyvis dalyviai[], Dalyvis naujasDalyvis);
+void VienoElementoIterpimas(int& n, Dalyvis dalyviai[], int vieta, Dalyvis naujasDalyvis);
+void Isvedimas(int n, Dalyvis dalyviai[]);
 
 int main()
 {
-   int n, k;
-   Dalyviai dalyviai;
+    int n, k;
+    Dalyvis dalyviai[400];
 
-   Nuskaitymas(n, k, dalyviai);
-   VisuRegionuPridejimas(n, k, dalyviai);
-   Rikiavimas(k, dalyviai);
-   Isvedimas(k, dalyviai);
-   return 0;
+    ifstream duomenys("duomenys.txt");
+
+    Nuskaitymas(n, k, dalyviai, duomenys);
+    VisuRegionuPridejimas(n, k, dalyviai, duomenys);
+
+    duomenys.close();
+
+    Isvedimas(k, dalyviai);
+
+    return 0;
 }
 
-void Nuskaitymas(int&n, int& k, Dalyviai& dalyviai)
+void Nuskaitymas(int&n, int& k, Dalyvis dalyviai[], ifstream& duomenys)
 {
-    ifstream duomenys("duomenys.txt");
     duomenys >> n >> k;
+
+    for(int i=0; i<k; i++)
+    {
+        duomenys >> dalyviai[i].Pavadinimas >> dalyviai[i].Taskai;
+        //cout << dalyviai[i].Pavadinimas << " " << dalyviai[i].Taskai << endl;
+        dalyviai[i].Regionas=1;
+    }
+}
+
+void VisuRegionuPridejimas(int n, int& k, Dalyvis dalyviai[], ifstream& duomenys)
+{
+    int a, b, c=n;
+    for(int i=1; i<c; i++)
+    {
+        Dalyvis naujasDalyvis;
+        duomenys >> a;
+        for(int j=0; j<a; j++)
+        {
+            duomenys >> naujasDalyvis.Pavadinimas >> naujasDalyvis.Taskai;
+            //cout << naujasDalyvis.Pavadinimas << endl;
+            naujasDalyvis.Regionas = i+1;
+            b = Iterpimas(k, dalyviai, naujasDalyvis);
+            //cout << b << endl;
+            VienoElementoIterpimas(k, dalyviai, b, naujasDalyvis);
+            //cout << a << endl;
+        }
+    }
+}
+
+int Iterpimas(int n, Dalyvis dalyviai[], Dalyvis naujasDalyvis)
+{
     for(int i=0; i<n; i++)
     {
-        dalyviai.Pavadinimas = new string[k];
-        dalyviai.Vertinimas = new int[k];
-        dalyviai.regionas = new int[k];
-    }
-
-    for(int i=0; i<k; i++)
-    {
-        duomenys >> dalyviai.Pavadinimas[i] >> dalyviai.Vertinimas[i];
-        dalyviai.regionas[i] = 1;
-    }
-    duomenys.close();
-}
-
-void VisuRegionuPridejimas(int n, int& k, Dalyviai& dalyviai)
-{
-    ifstream duomenys("duomenys.txt");
-    int a;
-    duomenys >> n >> k;
-    for(int i=0; i<k; i++)
-    {
-        duomenys >> dalyviai.Pavadinimas[i] >> dalyviai.Vertinimas[i];
-    }
-    for(int i=1; i<n; i++)
-    {
-        duomenys >> a;
-        for(int j=k; j<k+a; j++)
+        if(naujasDalyvis.Taskai>dalyviai[i].Taskai)
         {
-            cout << k+a << endl;
-            duomenys >> dalyviai.Pavadinimas[j] >> dalyviai.Vertinimas[j];
-            cout << "a " << dalyviai.Pavadinimas[j] << " " << dalyviai.Vertinimas[j] << endl;
-        }
-        dalyviai.regionas[i]=i+1;
-        k+=a;
-    }
-    duomenys.close();
-}
-
-void Rikiavimas(int k, Dalyviai& dalyviai)
-{
-    for(int i=0; i<k-1; i++)
-    {
-        int max=i;
-        for(int j=i+1; j<k; j++)
-        {
-            if(dalyviai.Vertinimas[j]>dalyviai.Vertinimas[max])
-            {
-                swap(dalyviai.Vertinimas[j], dalyviai.Vertinimas[max]);
-                swap(dalyviai.regionas[j], dalyviai.regionas[max]);
-                swap(dalyviai.Pavadinimas[j], dalyviai.Pavadinimas[max]);
-            }
+            return i;
         }
     }
+    return n;
 }
 
-void Isvedimas(int k, Dalyviai dalyviai)
+void VienoElementoIterpimas(int& n, Dalyvis dalyviai[], int vieta, Dalyvis naujasDalyvis)
 {
-    for(int i=0; i<k; i++)
+    for(int i=n; i>vieta; i--)
     {
-        cout << dalyviai.Pavadinimas[i] << " " << dalyviai.regionas[i] << endl;
+        dalyviai[i]=dalyviai[i-1];
+    }
+    dalyviai[vieta]=naujasDalyvis;
+    //cout << dalyviai[vieta].Pavadinimas << " " <<naujasDalyvis.Pavadinimas << endl;
+    n++;
+}
+
+void Isvedimas(int n, Dalyvis dalyviai[])
+{
+    for(int i=0; i<n; i++)
+    {
+        cout << dalyviai[i].Pavadinimas << " " << dalyviai[i].Taskai << " " << dalyviai[i].Regionas << endl;
     }
 }
