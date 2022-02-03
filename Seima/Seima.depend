@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1643479865 source:c:\users\jokûbas\documents\github\seima\main.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+

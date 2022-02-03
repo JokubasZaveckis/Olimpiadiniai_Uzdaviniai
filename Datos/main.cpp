@@ -177,6 +177,7 @@ void KiekDienuMetuose(int n, TikrinimoData& data, Produktas produktai[])
         }
         produktai[j].dienuSkaicius+=produktai[j].diena;
     }
+    cout << data.dienuSkaicius << endl;
 }
 
 void DienuSkirtumas(int n, TikrinimoData data, Produktas produktai[])
