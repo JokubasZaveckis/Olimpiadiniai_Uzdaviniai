@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1643962666 source:c:\users\jokûbas\documents\github\olimpiadiniai_uzdaviniai\futbolininkas\main.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+	<string.h>
+
