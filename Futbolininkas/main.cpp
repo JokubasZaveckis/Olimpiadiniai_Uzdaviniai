@@ -47,9 +47,7 @@ void Nuskaitymas(int& n, Futbolininkas futbolininkai[])
     for(int i=0; i<n; i++)
     {
         duomenys >> futbolininkai[0].ivarciai[i];
-        futbolininkai[0].kiekIvarciu+=futbolininkai[0].ivarciai[i];
         duomenys >> futbolininkai[1].ivarciai[i];
-        futbolininkai[1].kiekIvarciu+=futbolininkai[1].ivarciai[i];
     }
     duomenys.close();
 }

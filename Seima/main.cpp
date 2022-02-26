@@ -125,7 +125,6 @@ void Rikiavimas(int n, Zmogus lytis[])
         int max=i;
         for(int j=i+1; j<n; j++)
         {
-
             if(lytis[j].amzius<lytis[max].amzius || (lytis[j].amzius==lytis[max].amzius && lytis[j].men<lytis[max].men) || (lytis[j].amzius==lytis[max].amzius && lytis[j].men==lytis[max].men && lytis[j].diena<lytis[max].diena))
             {
                 max=j;

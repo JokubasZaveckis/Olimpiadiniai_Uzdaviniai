@@ -23,17 +23,17 @@ int main()
     IP ip[10];
 
     Nuskaitymas(n, ip);
-
-    /*for(int i=0; i<n; i++)
+    for(int i=0; i<n; i++)
     {
         ip[i].arTeisingas = TinkamumoIeskojimas(ip[i].adresas);
-    }*/
+        //cout << endl;
+    }
 
-    ip[0].arTeisingas = TinkamumoIeskojimas(ip[0].adresas);
+    /*ip[0].arTeisingas = TinkamumoIeskojimas(ip[0].adresas);
     ip[1].arTeisingas = TinkamumoIeskojimas(ip[1].adresas);
     ip[2].arTeisingas = TinkamumoIeskojimas(ip[2].adresas);
     ip[3].arTeisingas = TinkamumoIeskojimas(ip[3].adresas);
-    ip[4].arTeisingas = TinkamumoIeskojimas(ip[4].adresas);
+    ip[4].arTeisingas = TinkamumoIeskojimas(ip[4].adresas);*/
 
     TinkamumoPavertimas(n, ip);
     Isvedimas(n, ip);
@@ -54,15 +54,21 @@ void Nuskaitymas(int& n, IP ip[])
 bool TinkamumoIeskojimas(string ip)
 {
     int kiekDaliu=0;
-    int kurI[16]= {0};
-    for(int i=0; i<16; i++)
+    int kurI[16]={0};
+    int kiekSimboliu=0;
+    while(ip[kiekSimboliu++]!='\0');
+
+    for(int i=0; i<kiekSimboliu; i++)
     {
+        //cout << ip[i] << " ";
         if(ip[i]=='.')
         {
+            //cout << ip[i] << " ";
             kurI[kiekDaliu]=i;
             kiekDaliu++;
         }
     }
+
     for(int i=0; i<kiekDaliu; i++) //Patikrina kad nebutu dvieju tasku is eiles
     {
         if(kurI[i]==kurI[i+1])
@@ -74,10 +80,10 @@ bool TinkamumoIeskojimas(string ip)
     {
         return false;
     }
-
+    //cout << "A" << endl;
     if(ip[0]=='.') return false; //del ip pirmo simbolio .
 
-    for(int i=16; i>0; i--)
+    for(int i=kiekSimboliu; i>0; i--)
     {
         if(isdigit(ip[i]))
         {
@@ -85,33 +91,39 @@ bool TinkamumoIeskojimas(string ip)
         }
         if(ip[i]=='.') return false; // del ip paskutinio simbolio .
     }
-    for(int i=0; i<16; i++) // Patikrina del simboliu
+
+    for(int i=0; i<kiekSimboliu; i++) // Patikrina del simboliu kitokiu nei '.' ir ' '
     {
         if(!isdigit(ip[i]) && ip[i]!='.' && ip[i]!=0)
         {
             return false;
         }
     }
+
     int kiekSkaiciu[4]= {0};
     kiekSkaiciu[0]=kurI[0];
-    for(int i=1; i<3; i++) //kas bus jei suksiu nuo 0
+    for(int i=1; i<3; i++) //kas nutinka kai ciklas sukasi nuo 0
     {
         kiekSkaiciu[i]=kurI[i]-(kurI[i-1]+1);
         //cout << kiekSkaiciu[i] << endl; // kodel tiek daug isveda
     }
 
-    for(int i=kurI[2]+1; i<16; i++) // iesko kiek paskutiniame skyriuje skaiciu
+    for(int i=kurI[2]+1; i<kiekSimboliu; i++) // iesko kiek paskutiniame skyriuje skaiciu
     {
-        if(isdigit(ip[i]))
+        //cout << ip[i] << endl;
+        if(isdigit(ip[i]) && ip[i]!=0)
         {
+            //cout << ip[i] << " "; //sukant nuo 0 is pirmo ip atsiranda paskutinis skaicius
             kiekSkaiciu[3]++;
         }
     }
+
     for(int i=0; i<4; i++) // tikrina del skaicio kiekiu skyriuje
     {
+        //cout << kiekSkaiciu[i] << " ";
         if(kiekSkaiciu[i]>3) return false;
     }
-
+    //cout <<"A" << endl;
     /*for(int i=1; i<4; i++)
     {
         int skaicius=0, a=100;
