@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1646514951 source:c:\users\jokûbas\documents\github\olimpiadiniai_uzdaviniai\praktiski_skaitytojai\main.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+	<string.h>
+	<limits.h>
+	<climits>
+

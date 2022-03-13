@@ -1,0 +1,8 @@
+6 4
+0.3 0.2 0.2 0.3
+Tomas           6 9 10 7
+Domas           8 10 10 9
+Rimas           7 9 9 8
+Simas           9 9 9 9
+Romas           10 10 10 8
+Rokas           8 9 9 7

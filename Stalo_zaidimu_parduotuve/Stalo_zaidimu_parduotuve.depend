@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1645909482 source:c:\users\jokûbas\documents\github\olimpiadiniai_uzdaviniai\stalo_zaidimu_parduotuve\main.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+	<string.h>
+

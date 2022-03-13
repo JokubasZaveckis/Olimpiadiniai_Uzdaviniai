@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1646505781 source:c:\users\jokûbas\documents\github\olimpiadiniai_uzdaviniai\kolekcija\main.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+	<string.h>
+

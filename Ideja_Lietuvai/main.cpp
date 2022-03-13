@@ -19,16 +19,17 @@ struct Grupe
 };
 
 void Nuskaitymas(int& n, Grupe*& grupes);
-int DidziausiosReiksmesPaieska(int n, Grupe*& grupes, int skaicius, int skaicius2);
+int DidziausiosReiksmesPaieska(int n, Grupe*& grupes, int skaicius=0, int skaicius2=0);
 void Isvedimas(int n, Grupe* grupes, int didziausiosReiksmes[]);
 
 int main()
 {
-    int n, didziausiosReiksmes[3], skaicius=0, skaicius2=0;
+    int n, didziausiosReiksmes[3];
     Grupe* grupes = nullptr;
     Nuskaitymas(n, grupes);
-    didziausiosReiksmes[0] = DidziausiosReiksmesPaieska(n, grupes, skaicius, skaicius2);
-    didziausiosReiksmes[1] = DidziausiosReiksmesPaieska(n, grupes, didziausiosReiksmes[0], skaicius2);
+
+    didziausiosReiksmes[0] = DidziausiosReiksmesPaieska(n, grupes);
+    didziausiosReiksmes[1] = DidziausiosReiksmesPaieska(n, grupes, didziausiosReiksmes[0]);
     didziausiosReiksmes[2] = DidziausiosReiksmesPaieska(n, grupes, didziausiosReiksmes[1], didziausiosReiksmes[0]);
 
 
