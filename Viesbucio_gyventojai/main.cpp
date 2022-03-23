@@ -2,10 +2,9 @@
 #include <iomanip>
 #include <fstream>
 #include <string.h>
+#include <ctime>
 
 using namespace std;
-
-const int DIENOS[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 struct Gyventojas
 {
@@ -13,6 +12,12 @@ struct Gyventojas
     int metai, menuo, diena, kiekGyveno;
     int Imetai, Imenuo, Idiena; // isvykimo datos
     float kiekKainavo, kiekSumokejo=0;
+
+    time_t laikas = time(0);
+    char* t = ctime(&laikas);
+
+    void laikoKonvertavimas();
+
 };
 
 void Nuskaitymas(int& n, Gyventojas*& gyventojai);
@@ -28,6 +33,27 @@ int main()
     Nuskaitymas(n, gyventojai);
     IslaiduSkaiciavimas(n, gyventojai);
     float suma = Suma(n, gyventojai);
+
+//    tm laikai={0};
+//    laikai.tm_year = 2020-1900;
+//    laikai.tm_mon = 1-1;
+//    laikai.tm_mday = 15;
+//
+//    tm metai={0};
+//    metai.tm_year = 2021-1900;
+//    metai.tm_mon = 10-1;
+//    metai.tm_mday = 25;
+//
+//    time_t laikas1 = mktime(&laikai);
+//    time_t laikas2 = mktime(&metai);
+//
+//    cout << difftime(laikas2, laikas1)/(60*60*24) << endl;
+
+//    time_t laikas3 = (laikas2-laikas1)/(3600*24);
+//    char* a = ctime(&laikas1);
+
+    //cout << a << endl;
+
     Isvedimas(n, gyventojai);
 
     delete[] gyventojai;
@@ -42,10 +68,10 @@ void Nuskaitymas(int& n, Gyventojas*& gyventojai)
     char vardas[21];
     for(int i=0; i<n; i++)
     {
-         duomenys.ignore(256, '\n');
-         duomenys.get(vardas, 21);
-         gyventojai[i].Vardas = vardas;
-         duomenys >> gyventojai[i].metai >> gyventojai[i].menuo >> gyventojai[i].diena >> gyventojai[i].kiekGyveno >> gyventojai[i].kiekKainavo;
+        duomenys.ignore(256, '\n');
+        duomenys.get(vardas, 21);
+        gyventojai[i].Vardas = vardas;
+        duomenys >> gyventojai[i].metai >> gyventojai[i].menuo >> gyventojai[i].diena >> gyventojai[i].kiekGyveno >> gyventojai[i].kiekKainavo;
     }
     duomenys.close();
 }
@@ -84,18 +110,27 @@ void Rikiavimas(int n, Gyventojas*& gyventojai)
     }
 }
 
-void IsvykimoDatosSkaiciavimas(int n, Gyventojas*& gyventojai)
+void Gyventojas::laikoKonvertavimas()
+    {
+        tm laikai= {0};
+        laikai.tm_year = 2020-metai;
+        laikai.tm_mon = 1-menuo;
+        laikai.tm_mday = diena;
+        time_t kiekGyveno = mktime(&laikai);
+    }
+
+/*void IsvykimoDatosSkaiciavimas(int n, Gyventojas*& gyventojai)
 {
     for(int i=0; i<n; i++)
     {
-        while(gyventojai[i].kiekGyveno>356)
+        while(gyventojai[i].kiekGyveno>365)
         {
-            gyventojai[i].kiekGyveno-=356;
+            gyventojai[i].kiekGyveno-=365;
             gyventojai[i].Imetai++;
         }
         while(gyventojai[i].kiekGyveno>31)
     }
-}
+}*/
 
 void Isvedimas(int n, Gyventojas* gyventojai)
 {

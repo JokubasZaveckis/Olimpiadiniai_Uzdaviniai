@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1647636801 source:c:\users\jokûbas\documents\github\olimpiadiniai_uzdaviniai\meteo_stebejimai\main.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+	<string.h>
+	<cmath>
+

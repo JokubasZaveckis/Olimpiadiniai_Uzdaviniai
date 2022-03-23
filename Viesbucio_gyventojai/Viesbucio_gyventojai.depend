@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1647791586 source:c:\users\jokûbas\documents\github\olimpiadiniai_uzdaviniai\viesbucio_gyventojai\main.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+	<string.h>
+	<ctime>
+

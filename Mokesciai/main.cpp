@@ -11,6 +11,12 @@ struct Gyventojas
     int butoNumeris;
     float sildymas, elektra, vanduo;
     bool arSkolingas = false;
+
+    Gyventojas& operator+=(Gyventojas gyventojai)
+    {
+        this->sildymas+=gyventojai.sildymas;
+        return *this;
+    }
 };
 
 void Nuskaitymas(int& n, int& k, Gyventojas*& gyventojai, Gyventojas*& imokos);
@@ -25,11 +31,6 @@ int main()
     Gyventojas* imokos = nullptr;
 
     Nuskaitymas(n, k, gyventojai, imokos);
-
-    for(int i=0; i<n; i++)
-    {
-        //cout << gyventojai[i].Vardas << " " << gyventojai[i].butoNumeris << " " << gyventojai[i].sildymas << " " << gyventojai[i].elektra << " " << gyventojai[i].vanduo << endl;
-    }
 
     ImokuSutvarkymas(n, k, gyventojai, imokos);
     ArSkolingas(n, gyventojai);
@@ -48,7 +49,6 @@ void Nuskaitymas(int& n, int& k, Gyventojas*& gyventojai, Gyventojas*& imokos)
     char vardas[21];
     for(int i=0; i<n; i++)
     {
-        vardas[21]=0;
         duomenys.ignore(256, '\n');
         duomenys.get(vardas, 21);
         gyventojai[i].Vardas = vardas;
@@ -65,7 +65,6 @@ void Nuskaitymas(int& n, int& k, Gyventojas*& gyventojai, Gyventojas*& imokos)
     char name[21];
     for(int i=0; i<k; i++)
     {
-        name[21]=0;
         df.ignore(256, '\n');
         df.get(name, 21);
         imokos[i].Vardas = name;
@@ -84,9 +83,10 @@ void ImokuSutvarkymas(int n, int k, Gyventojas*& gyventojai, Gyventojas*& imokos
             if(gyventojai[i].Vardas==imokos[j].Vardas)
             {
                 //cout << gyventojai[i].Vardas << " " << gyventojai[i].vanduo << " " << imokos[j].vanduo << endl; blogas rez failas?
-                gyventojai[i].sildymas+=imokos[j].sildymas;
+                //gyventojai[i].sildymas+=imokos[j].sildymas;
                 gyventojai[i].elektra+=imokos[j].elektra;
                 gyventojai[i].vanduo+=imokos[j].vanduo;
+                gyventojai[i]+=imokos[j];
                 //cout << gyventojai[i].vanduo << endl;
             }
         }
@@ -104,11 +104,11 @@ void ArSkolingas(int n, Gyventojas*& gyventojai)
     }
 }
 
-void Isvedimas(int n, Gyventojas* gyventojai) // kaip veikia setw
+void Isvedimas(int n, Gyventojas* gyventojai)
 {
     for(int i=0; i<n; i++)
     {
-        cout << fixed << setprecision(2) << gyventojai[i].Vardas << " " << gyventojai[i].butoNumeris << " " << gyventojai[i].sildymas << " " << gyventojai[i].elektra << " " << gyventojai[i].vanduo << endl;
+        cout << fixed << setprecision(2) << gyventojai[i].Vardas << " " << setw(10) << left << gyventojai[i].butoNumeris << " " << setw(10) << gyventojai[i].sildymas << " " << setw(10) << gyventojai[i].elektra << " " << setw(10) << gyventojai[i].vanduo << endl;
     }
     cout << endl;
     for(int i=0; i<n; i++)
