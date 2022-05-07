@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1651401984 source:c:\users\jokûbas\documents\github\olimpiadiniai_uzdaviniai\buto_paieska\main.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+	<bits/stdc++.h>
+	<string>
+
+1651417040 source:c:\users\jokûbas\documents\github\olimpiadiniai_uzdaviniai\programuotoju_klase\main.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+	<bits/stdc++.h>
+	<string>
+

@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1651418051 source:c:\users\jokûbas\documents\github\olimpiadiniai_uzdaviniai\muzikos_albumu_parduotuve\main.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+	<string.h>
+
