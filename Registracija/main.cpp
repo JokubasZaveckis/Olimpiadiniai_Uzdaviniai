@@ -16,9 +16,13 @@ int SumosSkaiciavimas(int numeris);
 void TinkamumoIeskojimas(int n, Asmuo*& asmenys, int& kiekTiko);
 void Ismetimas(int& n, Asmuo*& asmenys, Asmuo*& pasalinti, int kiekTiko);
 void Isvedimas(int n, Asmuo*& asmenys, Asmuo*& pasalinti, int kiekPasalino);
+bool Tinka(long long numeris);
 
 int main()
 {
+    //setlocale(LC_ALL, "Lithuanian");
+
+
     int n, kiekTiko=0;
 
     Asmuo* asmenys = nullptr;
@@ -27,8 +31,8 @@ int main()
     Nuskaitymas(n, asmenys);
     TinkamumoIeskojimas(n, asmenys, kiekTiko);
     int kiekPasalino=n-kiekTiko;
-    Ismetimas(n, asmenys, pasalinti, kiekTiko);
-    Isvedimas(n, asmenys, pasalinti, kiekPasalino);
+    //Ismetimas(n, asmenys, pasalinti, kiekTiko);
+    Isvedimas(n, asmenys, asmenys, kiekPasalino);
 
     delete[] asmenys;
     delete[] pasalinti;
@@ -81,12 +85,21 @@ int SumosSkaiciavimas(long long numeris)
     return suma;
 }
 
+bool Tinka(long long numeris)
+{
+    int suma = SumosSkaiciavimas(numeris);
+    if(suma%10==0)
+    {
+        return true;
+    }
+    return false;
+}
+
 void TinkamumoIeskojimas(int n, Asmuo*& asmenys, int& kiekTiko)
 {
     for(int i=0; i<n; i++)
     {
-        int suma = SumosSkaiciavimas(asmenys[i].numeris);
-        if(suma%10==0)
+        if(Tinka(asmenys[i].numeris))
         {
             asmenys[i].arTinka=true;
             kiekTiko++;
@@ -103,11 +116,12 @@ void Ismetimas(int& n, Asmuo*& asmenys, Asmuo*& pasalinti, int kiekTiko)
         if(asmenys[i].arTinka==false)
         {
             pasalinti[a++]=asmenys[i];
-            for(int j=i+1; j<n; j++)
+            for(int j=i; j<n-1; j++)
             {
-                asmenys[i]=asmenys[j];
+                asmenys[j]=asmenys[j+1];
             }
             n--;
+            i--;
         }
     }
 }
@@ -118,12 +132,12 @@ void Isvedimas(int n, Asmuo*& asmenys, Asmuo*& pasalinti, int kiekPasalino)
 
     for(int i=0; i<n; i++)
     {
-        rezultatai << asmenys[i].vardas << " " << asmenys[i].numeris << endl;
+        rezultatai << asmenys[i].vardas << " | " << asmenys[i].numeris << endl;
     }
     rezultatai << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     for(int i=0; i<kiekPasalino; i++)
     {
-        rezultatai << pasalinti[i].vardas << " " << pasalinti[i].numeris << endl;
+        rezultatai << pasalinti[i].vardas << " | " << pasalinti[i].numeris << endl;
     }
     rezultatai.close();
 }
